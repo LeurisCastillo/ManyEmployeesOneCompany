@@ -88,8 +88,16 @@ namespace WebApiDemo.Controllers
         {
             try
             {
-                service.Delete(id);
-                return Ok();
+                var employee = service.Get(id);
+                if (employee == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    service.Delete(id);
+                    return Ok();
+                }
             }
             catch (System.Exception)
             {
@@ -102,7 +110,7 @@ namespace WebApiDemo.Controllers
         {
             try
             {
-                Employees output = new Employees 
+                Employees model = new Employees 
                 { 
                     Id = employee.Id,
                     Name = employee.Name,
@@ -110,9 +118,11 @@ namespace WebApiDemo.Controllers
                     CompanyID = employee.CompanyId
                 };
 
-                var model = service.Update(output);
-                if (model == null) return NotFound();
-                return Ok(model);
+                var output = service.Update(model);
+
+                if (output == null) return NotFound();
+                return Ok(output);
+
             }
             catch (System.Exception)
             {

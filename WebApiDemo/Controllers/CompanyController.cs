@@ -74,22 +74,17 @@ namespace WebApiDemo.Controllers
         {
             try
             {
-                var temp = service.Get(company.Id);
-                if (temp == null)
+                Company model = new Company
                 {
-                    return NotFound();
-                }
-                else
-                {
-                    Company output = new Company
-                    {
-                        Id = company.Id,
-                        Name = company.Name,
-                    };
+                    Id = company.Id,
+                    Name = company.Name,
+                };
 
-                    service.Update(output);
-                    return Ok();
-                }
+                var output = service.Update(model);
+
+                if (output == null) return NotFound();
+                return Ok(output);
+
             }
             catch (System.Exception)
             {
