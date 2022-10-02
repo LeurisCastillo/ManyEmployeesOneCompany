@@ -32,7 +32,7 @@ namespace WebApiDemo.Controllers
             }
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public IActionResult GetEmployeeById(int id)
         {
             try
@@ -47,7 +47,7 @@ namespace WebApiDemo.Controllers
             }
         }
 
-        [HttpGet("company/id")]
+        [HttpGet("company/{id}")]
         public IActionResult GetEmployeeByCompany(int id)
         {
             try
@@ -83,7 +83,7 @@ namespace WebApiDemo.Controllers
             }
         }
 
-        [HttpDelete("id")]
+        [HttpDelete("delete/{id}")]
         public IActionResult DeleteEmployee(int id)
         {
             try

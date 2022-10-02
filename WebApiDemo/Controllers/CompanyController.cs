@@ -34,7 +34,7 @@ namespace WebApiDemo.Controllers
             }
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public IActionResult GetCompanyById(int id)
         {
             Company company;
@@ -92,7 +92,7 @@ namespace WebApiDemo.Controllers
             }
         }
 
-        [HttpDelete("id")]
+        [HttpDelete("delete/{id}")]
         public IActionResult DeleteCompany(int id)
         {
             try
