@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Text.Json.Serialization;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebApiDemo.Models
 {
@@ -10,5 +11,6 @@ namespace WebApiDemo.Models
         public string LastName { get; set; }
         public int? CompanyID { get; set; }
         public Company Company { get; set; }
+        public Salary Salary { get; set; }
     }
 }

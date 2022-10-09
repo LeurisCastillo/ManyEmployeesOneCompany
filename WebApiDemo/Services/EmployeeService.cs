@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using WebApiDemo.Models;
@@ -50,8 +51,11 @@ namespace WebApiDemo.Services
             Employees employee;
 
             try
-            {
-                employee = db.Find<Employees>(id);
+            { // include para incluir entedidas relacionadas
+                employee = db.Set<Employees>().Where(e => e.Id == id)
+                    .Include(e => e.Salary)
+                    .Include(e => e.Company)
+                    .FirstOrDefault();
             }
             catch (Exception)
             {
@@ -68,7 +72,10 @@ namespace WebApiDemo.Services
 
             try
             {
-                employees = db.Set<Employees>().ToList();
+                employees = db.Set<Employees>()
+                    .Include(e => e.Salary)
+                    .Include(e => e.Company)
+                    .ToList();
             }
             catch (Exception)
             {

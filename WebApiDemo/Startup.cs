@@ -34,6 +34,7 @@ namespace WebApiDemo
 
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<ICompanyService, CompanyService>();
+            services.AddScoped<ISalaryService, SalaryService>();
 
             services.AddSwaggerGen();
         }

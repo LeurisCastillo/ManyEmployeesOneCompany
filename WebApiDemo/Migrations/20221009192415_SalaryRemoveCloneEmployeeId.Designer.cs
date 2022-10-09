@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApiDemo.Models;
 
 namespace WebApiDemo.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20221009192415_SalaryRemoveCloneEmployeeId")]
+    partial class SalaryRemoveCloneEmployeeId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,7 +66,7 @@ namespace WebApiDemo.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("EmployeeId")
+                    b.Property<int?>("EmployeesId")
                         .HasColumnType("int");
 
                     b.Property<int>("Wages")
@@ -72,8 +74,7 @@ namespace WebApiDemo.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EmployeeId")
-                        .IsUnique();
+                    b.HasIndex("EmployeesId");
 
                     b.ToTable("Salary");
                 });
@@ -89,23 +90,16 @@ namespace WebApiDemo.Migrations
 
             modelBuilder.Entity("WebApiDemo.Models.Salary", b =>
                 {
-                    b.HasOne("WebApiDemo.Models.Employees", "Employee")
-                        .WithOne("Salary")
-                        .HasForeignKey("WebApiDemo.Models.Salary", "EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("WebApiDemo.Models.Employees", "Employees")
+                        .WithMany()
+                        .HasForeignKey("EmployeesId");
 
-                    b.Navigation("Employee");
+                    b.Navigation("Employees");
                 });
 
             modelBuilder.Entity("WebApiDemo.Models.Company", b =>
                 {
                     b.Navigation("Employees");
-                });
-
-            modelBuilder.Entity("WebApiDemo.Models.Employees", b =>
-                {
-                    b.Navigation("Salary");
                 });
 #pragma warning restore 612, 618
         }
